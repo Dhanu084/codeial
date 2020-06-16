@@ -22,7 +22,7 @@ import {
 } from "./index";
 import * as jwtDecode from "jwt-decode";
 import { authenticate_user } from "../actions/auth";
-import { getFriends } from "../actions/friends";
+import { fetchFriends } from "../actions/friends";
 
 const PrivateRoute = (props) => {
   const { component: Component, isLoggedIn, path } = props;
@@ -61,15 +61,16 @@ export class App extends React.Component {
           name: user.name,
         })
       );
-      this.props.dispatch(getFriends());
+      this.props.dispatch(fetchFriends(user._id));
     }
   }
 
   render() {
     console.log("Props", this.props);
     const { posts } = this.props;
-    const { friends } = this.props.friends;
+    const { friends } = this.props;
     const { isLoggedIn } = this.props.auth;
+    console.log("Friends from APP", friends);
     return (
       <Router>
         <div>

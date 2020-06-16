@@ -29,6 +29,7 @@ export function fetchUserProfile(userid) {
   return (dispatch) => {
     dispatch(fetch_user());
     const url = APIUrls.userProfile(userid);
+    //console.log(url);
     fetch(url, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -37,7 +38,7 @@ export function fetchUserProfile(userid) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         if (data.success) {
           dispatch(userProfileSuccess(data.data.user));
         } else {

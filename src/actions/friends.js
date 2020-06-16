@@ -1,4 +1,8 @@
-import { GET_FRIENDS_SUCCESS } from "./index";
+import {
+  GET_FRIENDS_SUCCESS,
+  CREATE_NEW_FRIEND,
+  REMOVE_FRIENDSHIP,
+} from "./index";
 import { APIUrls } from "../helpers/urls";
 
 export function getFriends(friends) {
@@ -7,7 +11,7 @@ export function getFriends(friends) {
     friends,
   };
 }
-export default function fetchFriends(userid) {
+export function fetchFriends(userid) {
   return (dispatch) => {
     const url = APIUrls.userFriends(userid);
     fetch(url, {
@@ -18,10 +22,24 @@ export default function fetchFriends(userid) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("lahfkwevfknsdv", data.data.friends);
         if (data.success) {
-          dispatch(getFriends(data.friendships));
+          dispatch(getFriends(data.data.friends));
         }
       });
+  };
+}
+
+export function addNewFriend(friendship) {
+  return {
+    type: CREATE_NEW_FRIEND,
+    friendship,
+  };
+}
+
+export function removeFriend(userId) {
+  return {
+    type: REMOVE_FRIENDSHIP,
+    userId,
   };
 }

@@ -31,3 +31,5 @@ export const FETCH_USER = "FETCH_USER";
 
 //friends
 export const GET_FRIENDS_SUCCESS = "GET_FRIENDS_SUCCESS";
+export const CREATE_NEW_FRIEND = "CREATE_NEW_FRIEND";
+export const REMOVE_FRIENDSHIP = "REMOVE_FRIENDSHIP";
