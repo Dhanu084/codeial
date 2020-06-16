@@ -22,7 +22,6 @@ export function fetchFriends(userid) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("lahfkwevfknsdv", data.data.friends);
         if (data.success) {
           dispatch(getFriends(data.data.friends));
         }

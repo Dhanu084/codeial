@@ -53,7 +53,7 @@ export class App extends React.Component {
     const token = localStorage.getItem("token");
     if (token) {
       const user = jwtDecode(token);
-      console.log(user);
+      // console.log(user);
       this.props.dispatch(
         authenticate_user({
           email: user.email,
@@ -66,11 +66,10 @@ export class App extends React.Component {
   }
 
   render() {
-    console.log("Props", this.props);
     const { posts } = this.props;
     const { friends } = this.props;
     const { isLoggedIn } = this.props.auth;
-    console.log("Friends from APP", friends);
+
     return (
       <Router>
         <div>

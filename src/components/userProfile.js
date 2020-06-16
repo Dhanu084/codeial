@@ -28,7 +28,7 @@ export class userProfile extends Component {
     const index = friends
       .map((friend) => friend != undefined && friend.to_user._id)
       .indexOf(userId._id);
-    console.log(index, "index");
+
     if (index == -1) {
       return false;
     }
@@ -47,7 +47,7 @@ export class userProfile extends Component {
     };
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log(data);
+
     if (data.success) {
       this.setState({
         success: true,
@@ -96,8 +96,8 @@ export class userProfile extends Component {
     const { user } = this.props.profile;
     const { inProgress } = this.props.profile;
     const isFriend = this.checkIfUserisFriend();
-    console.log(isFriend);
-    console.log("Props", this.props, this.state);
+
+    // console.log("Props", this.props, this.state);
     if (inProgress) {
       return <h4>Loading !</h4>;
     }
