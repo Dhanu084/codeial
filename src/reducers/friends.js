@@ -13,6 +13,8 @@ export default function friends(state = defaultState, action) {
     case CREATE_NEW_FRIEND:
       return state.concat(action.friendship);
     case REMOVE_FRIENDSHIP:
+      //let index = state.friends.indexOf(action.userId);
+      console.log(state.friends);
       let newArray = state.filter(
         (friend) => friend.to_user._id != action.userId
       );

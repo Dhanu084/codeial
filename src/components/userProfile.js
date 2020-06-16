@@ -10,6 +10,7 @@ export class userProfile extends Component {
     this.state = {
       success: "",
       error: "",
+      successMessage: "",
     };
   }
   componentDidMount() {
@@ -21,14 +22,13 @@ export class userProfile extends Component {
 
   checkIfUserisFriend = () => {
     const { friends } = this.props;
-    console.log(friends, "checking already present");
 
     if (friends == undefined) return false;
     const userId = this.props.profile.user;
     const index = friends
-      .map((friend) => friend.to_user._id)
+      .map((friend) => friend != undefined && friend.to_user._id)
       .indexOf(userId._id);
-
+    console.log(index, "index");
     if (index == -1) {
       return false;
     }
@@ -36,9 +36,8 @@ export class userProfile extends Component {
   };
 
   addFriend = async () => {
-    const userId = this.props.profile.user._id;
-    const url = APIUrls.addFriend(userId);
-    console.log(url);
+    const userId = this.props.profile.user;
+    const url = APIUrls.addFriend(userId._id);
     const options = {
       method: "POST",
       headers: {
@@ -47,26 +46,26 @@ export class userProfile extends Component {
       },
     };
     const response = await fetch(url, options);
-    console.log(response);
     const data = await response.json();
     console.log(data);
     if (data.success) {
       this.setState({
         success: true,
         error: null,
+        successMessage: "Friend Added Successfully",
       });
-      this.props.dispatch(addNewFriend());
+      this.props.dispatch(addNewFriend(data.data.friendship));
     } else {
       this.setState({
-        success: null,
+        success: "",
         error: data.message,
+        successMessage: "",
       });
     }
   };
 
   removeFriend = async () => {
     const userId = this.props.profile.user._id;
-    console.log(userId);
     const url = APIUrls.removeFriend(userId);
     const options = {
       method: "POST",
@@ -82,12 +81,14 @@ export class userProfile extends Component {
       this.setState({
         success: true,
         error: null,
+        successMessage: "Removed Friend Successfully",
       });
       this.props.dispatch(removeFriend(userId));
     } else {
       this.setState({
         success: null,
         error: data.message,
+        successMessage: "",
       });
     }
   };
@@ -128,7 +129,9 @@ export class userProfile extends Component {
           )}
         </div>
         {this.state.success && (
-          <div className="alert success-dailog">Friend added</div>
+          <div className="alert success-dailog">
+            {this.state.successMessage}
+          </div>
         )}
         {this.state.error && (
           <div className="alert error-dailog">{this.state.error}</div>

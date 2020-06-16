@@ -1,7 +1,9 @@
-//For posts
+//Posts actions
 export const UPDATE_POSTS = "UPDATEPOSTS";
 export const CREATE_POSTS = "CREATE_POSTS";
 
+//Comments actions
+export const CREATE_COMMENT = "CREATE_COMMENT";
 //Login actions
 
 export const LOGIN_START = "LOGIN_START";

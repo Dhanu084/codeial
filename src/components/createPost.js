@@ -14,7 +14,7 @@ export class createPost extends Component {
     this.setState({
       content: e.target.value,
     });
-    console.log(this.state);
+    //console.log(this.state);
   };
 
   handleClick = () => {
