@@ -10,7 +10,7 @@ export default function friendsList(props) {
       {!props.friends && <div className="no-friends">No friends found</div>}
       {props.friends &&
         props.friends.map((friend) => (
-          <Friends friend={friend.to_user} index={friend._id} />
+          <Friends friend={friend.to_user} key={friend._id} />
         ))}
       {props.friend}
     </div>
