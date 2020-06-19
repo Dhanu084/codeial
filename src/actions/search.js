@@ -19,6 +19,7 @@ export function searchUsers(searchText) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data.success) {
           dispatch(searchedUsers(data.data.users));
         } else {

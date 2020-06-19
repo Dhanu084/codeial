@@ -84,7 +84,14 @@ export class App extends React.Component {
                 {
                   /*default props that contains info such as location,history. Passing this along with our posts */
                 }
-                return <Home {...props} posts={posts} friends={friends} />;
+                return (
+                  <Home
+                    {...props}
+                    posts={posts}
+                    friends={friends}
+                    isLoggedIn={isLoggedIn}
+                  />
+                );
               }}
             />
             <Route path="/login" component={Login} />

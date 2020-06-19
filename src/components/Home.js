@@ -1,14 +1,16 @@
 import React from "react";
-import { PostsList, friendsList as Friends } from "./";
+import { PostsList, friendsList as Friends, Chat } from "./";
 
 export default class Home extends React.Component {
   render() {
     const { posts } = this.props;
-    console.log("home", this.props);
+    const { isLoggedIn } = this.props;
+    //console.log("home", this.props);
     return (
       <div className="home">
-        <PostsList posts={posts} />
-        <Friends friends={this.props.friends} />
+        {isLoggedIn && <PostsList posts={posts} />}
+        {isLoggedIn && <Friends friends={this.props.friends} />}
+        {isLoggedIn && <Chat />}
       </div>
     );
   }

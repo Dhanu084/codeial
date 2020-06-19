@@ -17,9 +17,21 @@ export class userProfile extends Component {
     const {
       match: { params },
     } = this.props;
-    this.props.dispatch(fetchUserProfile(params.id));
+    if (params.id) this.props.dispatch(fetchUserProfile(params.id));
   }
 
+  componentDidUpdate(prevProps) {
+    const {
+      match: { params: prevParams },
+    } = prevProps;
+    const {
+      match: { params },
+    } = this.props;
+    //console.log(prevParams, params, prevParams.id, params.id);
+    if (prevParams && params && prevParams.id !== params.id) {
+      this.props.dispatch(fetchUserProfile(params.id));
+    }
+  }
   checkIfUserisFriend = () => {
     const { friends } = this.props;
 

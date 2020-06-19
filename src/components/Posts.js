@@ -36,7 +36,7 @@ class Posts extends Component {
   render() {
     const { post, user } = this.props;
     const isLikedByUser = post.likes.includes(user.id);
-    console.log(isLikedByUser);
+
     return (
       <div>
         <div className="post-wrapper" key={post._id}>

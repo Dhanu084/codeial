@@ -12,6 +12,8 @@ import friendslistItem from "./friendslistItem";
 import createPost from "./createPost";
 import Comments from "./Comments";
 import Posts from "./Posts";
+import Chat from "./Chat";
+
 export {
   PostsList,
   App,
@@ -27,4 +29,5 @@ export {
   createPost,
   Comments,
   Posts,
+  Chat,
 };
