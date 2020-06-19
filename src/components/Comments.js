@@ -6,7 +6,7 @@ export default function Comments({ comment }) {
       <div className="post-comment-header">
         <span className="post-comment-author">{comment.user.name}</span>
         <span className="post-comment-time">a minute ago</span>
-        <span className="post-comment-likes">{comment.likes.length}</span>
+        <span className="post-comment-likes">{comment.likes.length} likes</span>
       </div>
       <div className="post-comment-content">{comment.content}</div>
     </div>
