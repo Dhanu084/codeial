@@ -1,4 +1,10 @@
-import { UPDATE_POSTS, CREATE_POSTS, CREATE_COMMENT } from "./index";
+import {
+  UPDATE_POSTS,
+  CREATE_POSTS,
+  CREATE_COMMENT,
+  UPDATE_POST_LIKE,
+  UPDATE_COMMENT_LIKE,
+} from "./index";
 import { APIUrls } from "../helpers/urls";
 import { getFormBody } from "../helpers/utils";
 
@@ -78,5 +84,40 @@ export function createNewComment(content, post_id) {
           dispatch(createComment(data.data.content, post_id));
         }
       });
+  };
+}
+
+export function addNewlike(id, likeable_type, userId) {
+  return (dispatch) => {
+    const url = APIUrls.addLike(id, likeable_type);
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          if (likeable_type === "Post") dispatch(addLiketoPost(id, userId));
+          else addLiketoComment(id, userId);
+        }
+      });
+  };
+}
+
+export function addLiketoPost(postId, userId) {
+  return {
+    type: UPDATE_POST_LIKE,
+    postId,
+    userId,
+  };
+}
+export function addLiketoComment(commentId, userId) {
+  return {
+    type: UPDATE_COMMENT_LIKE,
+    commentId,
+    userId,
   };
 }

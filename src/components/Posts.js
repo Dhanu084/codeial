@@ -4,6 +4,7 @@ import { Comments } from "./";
 import { createNewComment } from "../actions/posts";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { addNewlike } from "../actions/posts";
 
 class Posts extends Component {
   constructor(props) {
@@ -25,9 +26,17 @@ class Posts extends Component {
       this.props.dispatch(createNewComment(this.state.comment, post_id));
     }
   };
+
+  handleLike = () => {
+    const { post, user } = this.props;
+    // console.log(post._id, user.id);
+    if (!post.likes.includes(user.id))
+      this.props.dispatch(addNewlike(post._id, "Post", user.id));
+  };
   render() {
-    const { post } = this.props;
-    //console.log(post);
+    const { post, user } = this.props;
+    const isLikedByUser = post.likes.includes(user.id);
+    console.log(isLikedByUser);
     return (
       <div>
         <div className="post-wrapper" key={post._id}>
@@ -47,13 +56,21 @@ class Posts extends Component {
             <div className="post-content">{post.content}</div>
 
             <div className="post-actions">
-              <div className="post-like">
-                <img
-                  src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
-                  alt="likes-icon"
-                />
+              <button className="post-like no-btn" onClick={this.handleLike}>
+                {isLikedByUser ? (
+                  <img
+                    src="https://image.flaticon.com/icons/svg/1076/1076984.svg"
+                    alt="likes-icon"
+                  />
+                ) : (
+                  <img
+                    src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
+                    alt="likes-icon"
+                  />
+                )}
+
                 <span>{post.likes.length}</span>
-              </div>
+              </button>
 
               <div className="post-comments-icon">
                 <img
@@ -89,4 +106,10 @@ class Posts extends Component {
 Posts.propTypes = {
   post: PropTypes.object.isRequired,
 };
-export default connect()(Posts);
+
+function mapStateToProps({ auth }) {
+  return {
+    user: auth.user,
+  };
+}
+export default connect(mapStateToProps)(Posts);
