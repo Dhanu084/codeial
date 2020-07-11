@@ -10,6 +10,7 @@ class Chat extends Component {
     this.state = {
       messages: [], // {content: 'some message', self: true}
       typedMessage: "",
+      changeChatSize: false,
     };
     //console.log(props);
     this.socket = io.connect("http://54.237.158.65:5000");
@@ -62,6 +63,20 @@ class Chat extends Component {
       });
     }
   };
+
+  toggleMinimize = () => {
+    let chatContainer = document.getElementsByClassName("chat-container")[0];
+    const { changeChatSize } = this.state;
+
+    if (!changeChatSize) {
+      chatContainer.style.height = "3rem";
+    } else {
+      chatContainer.style = chatContainerStyle;
+    }
+    this.setState({
+      changeChatSize: !changeChatSize,
+    });
+  };
   render() {
     const { typedMessage, messages } = this.state;
 
@@ -70,10 +85,13 @@ class Chat extends Component {
         <div className="chat-header">
           Chat
           <img
-            src="https://www.iconsdb.com/icons/preview/white/minus-5-xxl.png"
+            src="https://image.flaticon.com/icons/svg/659/659892.svg"
             alt=""
             height={17}
-            background-color="white"
+            width={45}
+            color="white"
+            className="minus"
+            onClick={this.toggleMinimize}
           />
         </div>
         <div className="chat-messages">
@@ -109,3 +127,11 @@ function mapStateToprops(state) {
 }
 
 export default connect(mapStateToprops)(Chat);
+
+const chatContainerStyle = {
+  position: "fixed",
+  height: "400px",
+  width: "300px",
+  bottom: 0,
+  right: "10px",
+};
